@@ -1,6 +1,5 @@
 package Practico_3_2;
 
-import Practico_3_2.Grafo;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -19,6 +18,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 				this.vertice.add(new Vertice(verticeId));
 			}
 	}
+
 	public ArrayList<Vertice> getVertice(){
 		return new ArrayList<Vertice>(this.vertice);
 	}
@@ -140,6 +140,18 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		}
 		return null;
 	}
+
+	@Override
+	public boolean tieneAdaysentes(int aux) {
+		int pos=this.getPosVertice(aux);
+		if(pos>=0){
+			if(this.vertice.get(pos).getAdyasentes().size()>0){
+				return true;
+			}
+		}
+		return false;
+	}
+
 	private int getPosVertice(int verticeId){
 		for(int i=0;i<this.vertice.size();i++){
 			if(this.vertice.get(i).getId()==verticeId){

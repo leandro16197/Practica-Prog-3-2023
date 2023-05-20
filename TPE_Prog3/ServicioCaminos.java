@@ -1,4 +1,5 @@
 package Practico_3_2;
+
 import java.util.*;
 
 
@@ -26,39 +27,37 @@ class ServicioCaminos {
 
             List<Integer> lista=new ArrayList();
             List<List<Integer>> recorrido=new ArrayList();
-
-            Iterator<Integer> it2=this.grafo.obtenerAdyacentes(this.origen);
-            while (it2.hasNext()){
-                int i=it2.next();
-                if(this.map.get(i).equals("blanco")){
-                    lista.add(i);
-                    recorrido.addAll(camino(i,lista));
-                }
-            }
-
+            camino(this.origen,lista,recorrido);
             return recorrido;
         }
 
-    private List camino(int i, List lista) {
+    private void camino(int i, List lista,List recorrido) {
             this.map.replace(i,"amarillo");
+            if(lista.isEmpty()){
+                lista.add(i);
+            }
             if(lista.size()<this.lim){
                 if(this.destino==i){
-                    lista.add(destino);
-                    return lista;
-                }else{
-                    Iterator<Integer>it3=this.grafo.obtenerAdyacentes(i);
-                    while (it3.hasNext()){
-                        int aux=it3.next();
+                recorrido.add(lista);
+            }else{
+                Iterator<Integer>it3=this.grafo.obtenerAdyacentes(i);
+                while (it3.hasNext()){
+                    int aux=it3.next();
+                    if(this.grafo.tieneAdaysentes(aux)==true){
                         lista.add(aux);
                         if(this.map.get(aux).equals("blanco")){
-                            camino(aux,lista);
+                            camino(aux,lista,recorrido);
+
                         }
+
+                        lista.remove(lista.indexOf(aux)x);
                     }
                 }
             }
-            this.map.replace(i,"blanco");
-            return lista;
+        }
+        this.map.replace(i,"blanco");
     }
-
 }
+
+
 

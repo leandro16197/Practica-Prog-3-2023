@@ -1,5 +1,5 @@
 package Practico_3_2;
-import Practico_3_2.Arco;
+
 
 import java.util.Iterator;import java.util.Iterator;
 
@@ -45,5 +45,5 @@ import java.util.Iterator;import java.util.Iterator;
         // Obtiene un iterador que me permite recorrer todos los arcos que parten desde verticeId
         public Iterator<Arco<T>> obtenerArcos(int verticeId);
 
-
+        boolean tieneAdaysentes(int aux);
     }

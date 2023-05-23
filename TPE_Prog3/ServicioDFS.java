@@ -32,14 +32,18 @@ public class ServicioDFS {
         }
         return lista;
     }
-
+    /**
+     * Complejidad: O(V+A)donde V=Vertice y A=Adyasentes
+     * ya que recorre todos los vertices(V) y a su ves por cada
+     * vertice recorre sus Adyasentes(A)
+     */
     private void dfs_visit(int v, ArrayList lista) {
         this.map.replace(v,"amarillo");
         Iterator<Integer>it3=this.grafo.obtenerAdyacentes(v);
         while (it3.hasNext()){
             int aux=it3.next();
-            lista.add(aux);
             if(this.map.get(aux).equals("blanco")){
+                lista.add(aux);
                 dfs_visit(aux,lista);
             }
         }

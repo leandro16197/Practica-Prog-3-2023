@@ -30,7 +30,11 @@ class ServicioBFS {
         }
         return lista;
     }
-
+    /**
+     * Complejidad: O(V+A)donde V=Vertice y A=Adyasentes
+     * ya que recorre todos los vertices(V) y a su ves por cada
+     * vertice recorre sus Adyasentes(A)
+     */
     private void bfs(int aux,List lista) {
         Queue<Integer> cola = new LinkedList<>();
         this.map.replace(aux, "visitado");

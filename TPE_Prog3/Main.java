@@ -30,7 +30,7 @@ public class Main<T>{
         ServicioBFS bfs=new ServicioBFS(grafo);
         System.out.println("Orden posible dfs : "+ dfs.ServicioDFS());
         System.out.println("Orden posible bfs : "+ bfs.ServicioBFS());
-        ServicioCaminos caminos=new ServicioCaminos(grafo,7,4,50);
+        ServicioCaminos caminos=new ServicioCaminos(grafo,7,4,5);
         System.out.println(caminos.caminos());
 
         /*int cantVertices = grafo.cantidadVertices();

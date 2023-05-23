@@ -44,6 +44,7 @@ class ServicioCaminos {
                     if (this.grafo.tieneAdaysentes(aux)==true && this.map.get(aux).equals("blanco")) {
                         lista.add(aux);
                         camino(aux, lista, recorrido);
+                        this.map.replace(aux,"blanco");
                         lista.remove(lista.size()-1);
                     }
                 }

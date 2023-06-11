@@ -1,6 +1,5 @@
 package Practico_3_2;
 
-import java.util.Objects;
 public class Arco<T> {
 
 	private int verticeOrigen;
@@ -27,12 +26,10 @@ public class Arco<T> {
 
 	@Override
 	public boolean equals(Object o) {
-		Arco a=(Arco)o;
-		if(this.verticeOrigen==a.getVerticeOrigen() && this.verticeDestino==a.getVerticeDestino()){
+		Arco a = (Arco) o;
+		if (this.verticeOrigen == a.getVerticeOrigen() && this.verticeDestino == a.getVerticeDestino()) {
 			return true;
 		}
 		return false;
 	}
-
-
 }

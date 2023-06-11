@@ -1,14 +1,18 @@
 package Practico_3_2;
 
+import Practico_3_2.Grafo;
+import javafx.scene.shape.Arc;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class GrafoDirigido<T> implements Grafo<T> {
-  private ArrayList<Vertice> vertice;
+	private ArrayList<Vertice> vertice;
+	private ArrayList<Arco<T>> arcos;
 
 	public GrafoDirigido() {
 		this.vertice =new ArrayList<Vertice>();
+		this.arcos=new ArrayList<Arco<T>>();
 	}
 
 	@Override
@@ -18,9 +22,9 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	 * el que se le pasa por parametros para poder crear un nuevo vertice
 	 */
 	public void agregarVertice(int verticeId) {
-			if(this.contieneVertice(verticeId)==false) {
-				this.vertice.add(new Vertice(verticeId));
-			}
+		if(this.contieneVertice(verticeId)==false) {
+			this.vertice.add(new Vertice(verticeId));
+		}
 	}
 
 	public ArrayList<Vertice> getVertice(){
@@ -55,6 +59,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		if(pos>=0){
 			if (this.contieneVertice(verticeId2) == true) {
 				this.vertice.get(pos).addAdyasentes(verticeId2,etiqueta);
+				this.arcos.add(new Arco<T>(verticeId1,verticeId2,etiqueta));
 			}
 		}
 	}
@@ -70,8 +75,20 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		if(pos>=0){
 			if (this.contieneVertice(verticeId2) == true) {
 				this.vertice.get(pos).deleteArco(verticeId2);
+				int posArco=this.getPosArco(verticeId1,verticeId2);
+				this.arcos.remove(posArco);
 			}
 		}
+	}
+
+	private int getPosArco(int verticeId1, int verticeId2) {
+		int pos=0;
+		for(int i=0;i<this.arcos.size();i++){
+			if(this.arcos.get(i).getVerticeOrigen()== verticeId1 && this.arcos.get(i).getVerticeDestino()== verticeId2){
+				pos=i;
+			}
+		}
+		return pos;
 	}
 
 	@Override
@@ -229,4 +246,10 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		}
 		return aux;
 	}
+
+	@Override
+	public ArrayList<Arco<T>> getArco() {
+		return new ArrayList<Arco<T>>(this.arcos);
+	}
+
 }

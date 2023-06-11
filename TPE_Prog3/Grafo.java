@@ -1,6 +1,7 @@
 package Practico_3_2;
+import Practico_3_2.Arco;
 
-
+import java.util.ArrayList;
 import java.util.Iterator;import java.util.Iterator;
 
 
@@ -46,4 +47,8 @@ import java.util.Iterator;import java.util.Iterator;
         public Iterator<Arco<T>> obtenerArcos(int verticeId);
 
         boolean tieneAdaysentes(int aux);
+
+        public ArrayList<Arco<T>> getArco();
+
+        public ArrayList<Vertice> getVertice();
     }

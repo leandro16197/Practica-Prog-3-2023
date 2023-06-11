@@ -1,11 +1,17 @@
 package Practico_3_2;
 
-import java.util.Iterator;
+import java.util.ArrayList;
 
 public class Main<T>{
     public static void main(String[] args) {
-        GrafoDirigido grafo = new GrafoDirigido();
-
+        CSVReader reader= new CSVReader("src\\Practico_3_2\\dataset\\dataset1.txt");
+        GrafoNoDirigido g= (GrafoNoDirigido) reader.read();
+        Backtracking back=new Backtracking();
+        ArrayList<Arco> tunel=new ArrayList<>();
+        back.backTracking(g,tunel);
+        System.out.println("tamanio");
+        back.getMejorTunel();
+        /*
         grafo.agregarVertice(1);
         grafo.agregarVertice(2);
         grafo.agregarVertice(3);
@@ -17,7 +23,6 @@ public class Main<T>{
         grafo.agregarVertice(9);
         grafo.agregarArco(2,7, "2 a 7");
         grafo.agregarArco(7,1, "7 a 1");
-        grafo.agregarArco(7,4, "7 a 4");
         grafo.agregarArco(1,3, "1 a 3");
         grafo.agregarArco(3,9, "3 a 9");
         grafo.agregarArco(3,4, "3 a 4");
@@ -30,7 +35,7 @@ public class Main<T>{
         ServicioBFS bfs=new ServicioBFS(grafo);
         System.out.println("Orden posible dfs : "+ dfs.ServicioDFS());
         System.out.println("Orden posible bfs : "+ bfs.ServicioBFS());
-        ServicioCaminos caminos=new ServicioCaminos(grafo,7,4,5);
+        ServicioCaminos caminos=new ServicioCaminos(grafo,2,4,6);
         System.out.println(caminos.caminos());
 
         /*int cantVertices = grafo.cantidadVertices();

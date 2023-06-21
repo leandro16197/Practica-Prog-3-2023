@@ -12,7 +12,7 @@ public class Backtracking<T> {
         this.tunelMejor.add(new Arco(1, 4, Integer.MAX_VALUE));
     }
     public void backTracking(Grafo g, ArrayList<Arco<T>> tunel) {
-       if(solucion(tunel)){
+       if(solucion(g, tunel)){
            if (sumaTunel(tunel) < sumaTunel(this.tunelMejor)) {
                this.tunelMejor = new ArrayList<>(tunel);
            }
@@ -33,26 +33,28 @@ public class Backtracking<T> {
 
     public void getMejorTunel(){
         for(int i=0;i<this.tunelMejor.size();i++){
-            System.out.print(this.tunelMejor.get(i).getVerticeOrigen()+"->"+this.tunelMejor.get(i).getVerticeDestino());
+            System.out.println(this.tunelMejor.get(i).getVerticeOrigen()+"->"+this.tunelMejor.get(i).getVerticeDestino());
         }
     }
 
-    private boolean solucion(ArrayList<Arco<T>> tunel) {
-        UnionFind uf=new UnionFind(tunel.size());
-        System.out.println("tamaño tunel "+tunel.size());
-        boolean ciclo=false;
-            for(int i=0;i<tunel.size()-1;i++){
-                int vertice1 = tunel.get(i).getVerticeOrigen();
-                int vertice2 = tunel.get(i).getVerticeDestino();
-                int root1=uf.find(vertice1);
-                int root2=uf.find(vertice2);
-                if(root1==root2){
-                    ciclo=true;
-                }
-
-                uf.union(root1,root2);
+    private boolean solucion( Grafo<T> g, ArrayList<Arco<T>> tunel) {
+        UnionFind uf=new UnionFind(g.cantidadVertices());
+        for(int i=0;i<tunel.size();i++){
+            int vertice1 = tunel.get(i).getVerticeOrigen();
+            int vertice2 = tunel.get(i).getVerticeDestino();
+            int root1=uf.find(vertice1-1);
+            int root2=uf.find(vertice2-1);
+            uf.union(root1,root2);
+        }
+        int root = uf.find(0);
+        boolean flag =true;
+        for (int i = 0; i < g.cantidadVertices(); i++) {
+            if (uf.find(i) != root){
+                flag = false;
+                break;
             }
-        return ciclo;
+        }
+        return flag;
     }
 
     private ArrayList<Vertice<T>> obtenerVertice(ArrayList<Arco> l) {

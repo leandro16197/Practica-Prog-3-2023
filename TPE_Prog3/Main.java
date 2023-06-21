@@ -9,7 +9,6 @@ public class Main<T>{
         Backtracking back=new Backtracking();
         ArrayList<Arco> tunel=new ArrayList<>();
         back.backTracking(g,tunel);
-        System.out.println("tamanio");
         back.getMejorTunel();
         /*
         grafo.agregarVertice(1);

@@ -2,18 +2,17 @@ package Practico_3_2;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
 public class Backtracking<T> {
 
-    private ArrayList<Arco> tunelMejor;
+    private ArrayList<Arco<T>> tunelMejor;
 
     public Backtracking() {
-        this.tunelMejor = new ArrayList<Arco>();
+        this.tunelMejor = new ArrayList<>();
         this.tunelMejor.add(new Arco(1, 4, Integer.MAX_VALUE));
     }
-    public void backTracking(Grafo g, ArrayList<Arco> tunel) {
-       if(solucion(g,tunel)){
+    public void backTracking(Grafo g, ArrayList<Arco<T>> tunel) {
+       if(solucion(tunel)){
            if (sumaTunel(tunel) < sumaTunel(this.tunelMejor)) {
                this.tunelMejor = new ArrayList<>(tunel);
            }
@@ -38,74 +37,23 @@ public class Backtracking<T> {
         }
     }
 
-<<<<<<< HEAD
-    private boolean solucion(Grafo g, ArrayList<Arco> tunel) {
-        ArrayList<Vertice<T>> verticesTunel = this.obtenerVertice(tunel);
+    private boolean solucion(ArrayList<Arco<T>> tunel) {
+        UnionFind uf=new UnionFind(tunel.size());
+        System.out.println("tamaño tunel "+tunel.size());
+        boolean ciclo=false;
+            for(int i=0;i<tunel.size()-1;i++){
+                int vertice1 = tunel.get(i).getVerticeOrigen();
+                int vertice2 = tunel.get(i).getVerticeDestino();
+                int root1=uf.find(vertice1);
+                int root2=uf.find(vertice2);
+                if(root1==root2){
+                    ciclo=true;
+                }
 
-        // Verificar si la lista está vacía
-        if (verticesTunel.isEmpty()) {
-            return false;
-        }
-
-        // Utilizar el primer vértice como vértice inicial para la búsqueda en profundidad
-        Vertice<T> verticeInicial = verticesTunel.get(0);
-
-=======
-   private boolean solucion(Grafo g, ArrayList<Arco> tunel) {
-        ArrayList<Vertice<T>> verticesTunel = this.obtenerVertice(tunel);
-
-        // Verificar si la lista está vacía
-        if (verticesTunel.isEmpty()) {
-            return false;
-        }
-
-        // Utilizar el primer vértice como vértice inicial para la búsqueda en profundidad
-        Vertice<T> verticeInicial = verticesTunel.get(0);
-
->>>>>>> master
-        // Realizar la búsqueda en profundidad desde el vértice inicial
-        HashSet<Vertice<T>> visitados = new HashSet<>();
-        dfs(g, verticeInicial, visitados);
-
-        // Verificar si todos los vértices en la lista tunel fueron visitados
-        for (Vertice<T> vertice : verticesTunel) {
-            if (!visitados.contains(vertice)) {
-                return false;
+                uf.union(root1,root2);
             }
-        }
-
-        return true;
-<<<<<<< HEAD
+        return ciclo;
     }
-
-    private void dfs(Grafo g, Vertice<T> vertice, HashSet<Vertice<T>> visitados) {
-        visitados.add(vertice);
-        // Obtener los vértices adyacentes al vértice actual
-        ArrayList<Vertice<T>> adyacentes = g.obtenerAdyacentes(vertice);
-
-        // Recorrer los vértices adyacentes y realizar la búsqueda en profundidad recursivamente
-        for (Vertice<T> adyacente : adyacentes) {
-            if (!visitados.contains(adyacente)) {
-                dfs(g, adyacente, visitados);
-            }
-        }
-=======
->>>>>>> master
-    }
-
-    private void dfs(Grafo g, Vertice<T> vertice, HashSet<Vertice<T>> visitados) {
-        visitados.add(vertice);
-        // Obtener los vértices adyacentes al vértice actual
-        ArrayList<Vertice<T>> adyacentes = g.obtenerAdyacentes(vertice);
-
-        // Recorrer los vértices adyacentes y realizar la búsqueda en profundidad recursivamente
-        for (Vertice<T> adyacente : adyacentes) {
-            if (!visitados.contains(adyacente)) {
-                dfs(g, adyacente, visitados);
-            }
-        }
-    }
-
 
     private ArrayList<Vertice<T>> obtenerVertice(ArrayList<Arco> l) {
         ArrayList<Vertice<T>> aux = new ArrayList<>();
@@ -122,10 +70,10 @@ public class Backtracking<T> {
         }
         return aux;
     }
-    private int sumaTunel(ArrayList<Arco> a) {
+    private Integer sumaTunel(ArrayList<Arco<T>> a) {
         int total = 0;
         for(int i=0;i<a.size();i++){
-            total+=(int)a.get(i).getEtiqueta();
+            total+=(Integer) a.get(i).getEtiqueta();
         }
         return total;
     }

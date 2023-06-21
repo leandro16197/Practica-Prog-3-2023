@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Main<T>{
     public static void main(String[] args) {
-        CSVReader reader= new CSVReader("src\\Practico_3_2\\dataset\\dataset1.txt");
+       CSVReader reader= new CSVReader("TPE_Prog3\\dataset\\dataset1.txt");
         GrafoNoDirigido g= (GrafoNoDirigido) reader.read();
         Backtracking back=new Backtracking();
         ArrayList<Arco> tunel=new ArrayList<>();

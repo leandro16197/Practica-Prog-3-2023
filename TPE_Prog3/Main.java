@@ -6,10 +6,13 @@ public class Main<T>{
     public static void main(String[] args) {
        CSVReader reader= new CSVReader("TPE_Prog3\\dataset\\dataset1.txt");
         GrafoNoDirigido g= (GrafoNoDirigido) reader.read();
-        Backtracking back=new Backtracking();
+        Greedy greedy=new Greedy();
+        greedy.Greedy(g);
+        greedy.informeGreedy();
+        /*Backtracking back=new Backtracking();
         ArrayList<Arco> tunel=new ArrayList<>();
-        back.backTracking(g,tunel);
-        back.getMejorTunel();
+        back.backTracking(g,tunel,0);
+        back.informeBacktracking();
         /*
         grafo.agregarVertice(1);
         grafo.agregarVertice(2);

@@ -6,37 +6,55 @@ import java.util.HashSet;
 public class Backtracking<T> {
 
     private ArrayList<Arco<T>> tunelMejor;
+    private int metrica;
+    private int mejorMetrica;
 
     public Backtracking() {
         this.tunelMejor = new ArrayList<>();
         this.tunelMejor.add(new Arco(1, 4, Integer.MAX_VALUE));
+        this.metrica=0;
+        this.mejorMetrica=0;
     }
-    public void backTracking(Grafo g, ArrayList<Arco<T>> tunel) {
-       if(solucion(g, tunel)){
-           if (sumaTunel(tunel) < sumaTunel(this.tunelMejor)) {
-               this.tunelMejor = new ArrayList<>(tunel);
-           }
+    public void backTracking(Grafo g, ArrayList<Arco<T>> tunel,int met) {
+        this.metrica++;
+        if(solucion(g, tunel)){
+            if (sumaTunel(tunel) < sumaTunel(this.tunelMejor)) {
+                this.tunelMejor = new ArrayList<>(tunel);
+                this.mejorMetrica=this.metrica;
+            }
         }else {
             if(!g.getArco().isEmpty()){
                 Arco<T> aux= (Arco<T>) g.getArco().get(0);
                 g.borrarArco(aux.getVerticeOrigen(),aux.getVerticeDestino());
                 if(!tunel.contains(aux)){
                     tunel.add(aux);
-                    backTracking(g,tunel);
+                    backTracking(g,tunel,this.metrica+1);
                     tunel.remove(aux);
-                    backTracking(g,tunel);
+                    backTracking(g,tunel,this.metrica+1);
                     g.agregarArco(aux.getVerticeOrigen(), aux.getVerticeDestino(),aux.getEtiqueta());
                 }
             }
         }
     }
 
-    public void getMejorTunel(){
+    public void informeBacktracking(){
+        System.out.println("BackTracking");
         for(int i=0;i<this.tunelMejor.size();i++){
-            System.out.println(this.tunelMejor.get(i).getVerticeOrigen()+"->"+this.tunelMejor.get(i).getVerticeDestino());
+            System.out.print("E"+this.tunelMejor.get(i).getVerticeOrigen()+"->"+"E"+this.tunelMejor.get(i).getVerticeDestino()+" ");
         }
+        System.out.println("  ");
+        int valorTunel=this.sumaTunel(this.tunelMejor);
+        System.out.println(valorTunel+" Kms");
+        System.out.println(this.getMejorMetrica()+" metrica ");
     }
 
+    public int getMejorMetrica() {
+        return mejorMetrica;
+    }
+
+    private int getMetrica(){
+        return this.metrica;
+    }
     private boolean solucion( Grafo<T> g, ArrayList<Arco<T>> tunel) {
         UnionFind uf=new UnionFind(g.cantidadVertices());
         for(int i=0;i<tunel.size();i++){

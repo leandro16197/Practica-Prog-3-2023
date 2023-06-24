@@ -15,6 +15,7 @@ class UnionFind {
     }
 
     public int find(int element) {
+
         // Comprimir la ruta mientras se busca el representante raíz
         if (parent[element] != element) {
             parent[element] = find(parent[element]);

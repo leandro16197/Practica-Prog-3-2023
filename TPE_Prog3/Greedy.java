@@ -1,6 +1,8 @@
 package Practico_3_2;
 
 
+import javafx.scene.shape.Arc;
+
 import java.util.ArrayList;
 
 
@@ -17,12 +19,12 @@ public class Greedy <T>{
         this.metrica++;
         ArrayList<Arco<T>> posibleSolucion=new ArrayList<Arco<T>>();
         ArrayList<Arco<T>> arcos=new ArrayList<Arco<T>>(g.getArco());
-        Arco<T>aux=arcos.get(0);
+        Arco<T>aux=obtenerMenor(arcos);
         arcos.remove(aux);
         posibleSolucion.add(aux);
         while(!solucion(g,posibleSolucion) && !arcos.isEmpty()){
             this.metrica++;
-            aux=arcos.get(0);
+            aux=obtenerMenor(arcos);
             arcos.remove(aux);
             if(factible(aux,posibleSolucion)==true) {
                 posibleSolucion.add(aux);
@@ -30,6 +32,17 @@ public class Greedy <T>{
 
         }
         this.greedyMejorTunel=posibleSolucion;
+    }
+
+    private Arco<T> obtenerMenor(ArrayList<Arco<T>> arcos) {
+        Arco<T>aux=new Arco(1, 4, Integer.MAX_VALUE);
+        for(int i=0;i<arcos.size();i++){
+            if(Integer.parseInt(arcos.get(i).getEtiqueta().toString())
+                    <Integer.parseInt(aux.getEtiqueta().toString())){
+                aux=arcos.get(i);
+            }
+        }
+        return aux;
     }
 
     private boolean factible(Arco<T> aux, ArrayList<Arco<T>> posibleSolucion) {

@@ -23,7 +23,6 @@ public class Arco<T> {
 	public T getEtiqueta() {
 		return etiqueta;
 	}
-
 	@Override
 	public boolean equals(Object o) {
 		Arco a = (Arco) o;
@@ -31,5 +30,10 @@ public class Arco<T> {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public String toString() {
+		return " Arco Vertice Origen "+ verticeOrigen +" , Vertice Destino " + verticeDestino +" Etiqueta " + etiqueta;
 	}
 }

@@ -33,7 +33,7 @@ class ServicioCaminos {
 
     private void camino(int i, List<Integer> lista, List<List<Integer>> recorrido) {
         this.map.replace(i, "amarillo");
-        if (lista.size() < this.lim) {
+        if (lista.size() <= this.lim) {
             if (this.destino == i) {
                 recorrido.add(new ArrayList<>(lista));
             } else {

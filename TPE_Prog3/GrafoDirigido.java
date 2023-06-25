@@ -58,8 +58,10 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		int pos = this.getPosVertice(verticeId1);
 		if(pos>=0){
 			if (this.contieneVertice(verticeId2) == true) {
-				this.vertice.get(pos).addAdyasentes(verticeId2,etiqueta);
-				this.arcos.add(new Arco<T>(verticeId1,verticeId2,etiqueta));
+				if (!this.vertice.get(pos).contiene(verticeId2)) {
+					this.vertice.get(pos).addAdyasentes(verticeId2,etiqueta);
+					this.arcos.add(new Arco<T>(verticeId1,verticeId2,etiqueta));
+				}
 			}
 		}
 	}
@@ -139,6 +141,9 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	}
 
 	@Override
+	/**
+	 * Complejidad: O(1)
+	 */
 	public int cantidadVertices() {
 		return this.vertice.size() ;
 	}
@@ -169,8 +174,9 @@ public class GrafoDirigido<T> implements Grafo<T> {
 
 	@Override
 	/**
-	 * Complejidad: O(1) ya que su complejidad va a ser la misma sin importar el tamaño
-	 * crea y retorna un iterator
+	 * Complejidad: O(n) siendo n el tamaño maximo de la lista de los vertices
+	 * ya que se utiliza para verificar que el id pasado por parametros sea un id
+	 * valido para algun vertice
 	 */
 	public Iterator<Integer> obtenerAdyacentes(int verticeId) {
 		int pos=this.getPosVertice(verticeId);
